@@ -1,4 +1,6 @@
-var Enemy = function(x, y) {
+// Enemy Class
+
+const Enemy = function(x, y) {
 	this.x = x
 	this.y = y
 	this.sprite = 'images/enemy-bug.png';
@@ -7,20 +9,20 @@ var Enemy = function(x, y) {
 };
 
 Enemy.prototype.update = function(dt) {
-		if (this.x > ctx.canvas.width + this.width) {
-			this.x  = 200 * Math.floor(Math.random() * 4) + 1;
-		} else {
-			this.x += 150 * dt;
-		}
+	if (this.x > ctx.canvas.width + this.width) {
+		this.x  = 200 * Math.floor(Math.random() * 4) + 1;
+	} else {
+		this.x += 150 * dt;
+	}
 
-		// collision handling
-		if ( player.x >= this.x - 30
-			&& player.x <= this.x + 30
-			&& player.y >= this.y - 30
-			&& player.y <= this.y + 30) {
-				player.x = 202;
-				player.y = 388;
-		}
+	// collision handling
+	if ( player.x >= this.x - 30
+		&& player.x <= this.x + 30
+		&& player.y >= this.y - 30
+		&& player.y <= this.y + 30) {
+			player.x = 202;
+			player.y = 388;
+	}
 };
 
 
@@ -28,6 +30,15 @@ Enemy.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Initialize enemy position
+const enemyPosition = [55, 140, 230]; 
+
+let allEnemies = enemyPosition.map((y, index) => {
+	return new Enemy ((-200* (index + 1)), y);
+}); 
+
+
+// Player Class
 const Player = function(x, y, sprite) {
 	this.x = x
 	this.y = y
@@ -43,6 +54,7 @@ Player.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Check if the player has won the game, if so: reset the game
 Player.prototype.update = function() {
 	if (player.y < 56) {
 		reset();
@@ -82,17 +94,12 @@ document.addEventListener('keyup', function(e) {
 	player.handleInput(allowedKeys[e.keyCode]);
 });
 
-
+// Reset enemy and player positions
 function reset() {
 	allEnemies = enemyPosition.map((y, index) => {
 		return new Enemy ((-200* (index + 1)), y);
 	})
+	
 	player.x = 202;
 	player.y = 388;
 }
-
-const enemyPosition = [55, 140, 230]; 
-
-let allEnemies = enemyPosition.map((y, index) => {
-	return new Enemy ((-200* (index + 1)), y);
-}); 
