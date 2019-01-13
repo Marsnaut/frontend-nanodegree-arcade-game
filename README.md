@@ -1,6 +1,6 @@
 # Project Overview
 
-This project is an implementation of object-oriented Javascript through class prototype functions. A very simple yet elegant recreation of Frogger.
+This project is an implementation of object-oriented Javascript through class prototype functions. A very simple yet elegant recreation of Frogger
 
 
 # How to Run this Application
